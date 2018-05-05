@@ -7,16 +7,11 @@ class Solution(object):
         """
         if not nums:
             return -1
-        if len(nums)<=2:
-            for i in range(len(nums)):
-                if nums[i] == target:
-                    return i
-            return -1
+        
         left = 0
         right = len(nums)-1
         while left<=right:
             mid = (left+right)//2
-            print(mid)
             if nums[mid] == target:
                 return mid
             
@@ -40,12 +35,33 @@ class Solution(object):
                         left = mid+1
                     else:
                         right = mid-1
-                
-        
-        if nums[0] == target:
-            return 0
-        if nums[len(nums)-1] == target:
-            return len(nums)-1
         
         # left>right
         return -1
+        
+
+        '''
+        #Another solution
+        if not nums:
+            return -1
+
+        low, high = 0, len(nums) - 1
+
+        while low <= high:
+            mid = (low + high) / 2
+            if target == nums[mid]:
+                return mid
+
+            if nums[low] <= nums[mid]:
+                if nums[low] <= target <= nums[mid]:
+                    high = mid - 1
+                else:
+                    low = mid + 1
+            else:
+                if nums[mid] <= target <= nums[high]:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+
+        return -1
+        '''
