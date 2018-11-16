@@ -36,3 +36,24 @@ class Solution2:
         p2 = x.pop()
         p1 = x.pop()
         return (math.sqrt((p1[0]-p3[0])**2 + (p1[1] - p3[1])**2) == math.sqrt((p2[0]-p4[0])**2 + (p2[1] - p4[1])**2)) and ( ( math.sqrt((p1[0]-p4[0])**2 + (p1[1] - p4[1])**2) == math.sqrt((p1[0]-p2[0])**2 + (p1[1] - p2[1])**2) ) and ( math.sqrt((p3[0]-p4[0])**2 + (p3[1] - p4[1])**2) == math.sqrt((p3[0]-p2[0])**2 + (p3[1] - p2[1])**2) ) )
+
+## 其实对于这道题来说，只要check对角线相等且垂直平分就好了。
+class Solution3:
+    def validSquare(self, p1, p2, p3, p4):
+        """
+        :type p1: List[int]
+        :type p2: List[int]
+        :type p3: List[int]
+        :type p4: List[int]
+        :rtype: bool
+        """
+        a=list([p1,p2,p3,p4])
+        a.sort()
+        p1,p2,p3,p4=a
+        c1=[p4[0]-p1[0],p4[1]-p1[1]]
+        c2=[p3[0]-p2[0],p3[1]-p2[1]]
+        d1=(c1[0]*c2[0]+c1[1]*c2[1])==0
+        d2=(c1[0]*c1[0]+c1[1]*c1[1])==(c2[0]*c2[0]+c2[1]*c2[1])
+        d3=p1!=p2
+        d4=(p3[0]+p2[0])==(p1[0]+p4[0])
+        return d1 and d2 and d3 and d4
