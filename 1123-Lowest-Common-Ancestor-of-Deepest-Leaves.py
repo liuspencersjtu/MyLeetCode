@@ -53,3 +53,17 @@ class Solution:
                 return root
             return
         return dfs(root)
+
+    # def lcaDeepestLeaves(self, root: TreeNode) -> TreeNode:
+    #     def helper(root):
+    #         if not root:
+    #             return 0, None
+    #         d1, node1 = helper(root.left)
+    #         d2, node2 = helper(root.right)
+    #         if d2 > d1:
+    #             return d2+1, node2
+    #         if d1 > d2:
+    #             return d1+1, node1
+    #         if d1 == d2:
+    #             return d1+1, root
+    #     return helper(root)[1]
