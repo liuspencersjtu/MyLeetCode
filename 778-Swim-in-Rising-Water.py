@@ -42,4 +42,18 @@ class UnionFind(object):
     def connected(self, x, y):
         return self.find(x) == self.find(y)
 
-
+import heapq
+class Solution:
+    def swimInWater(self, grid: List[List[int]]) -> int:
+        heap, seen, res = [(grid[0][0], 0, 0)], set([0,0]), 0
+        while True:
+            # 这里利用了矩阵中所有元素刚好是0-n**2-1这样一个现状
+            # 每次从目前能走到的高度最低的点向外拓展
+            T, i, j = heapq.heappop(heap)
+            res = max(res, T)
+            if i == j == len(grid) - 1:
+                return res
+            for x,y in [(i+1,j), (i,j+1), (i-1,j), (i,j-1)]:
+                if 0<=x<len(grid) and 0<=y<len(grid) and (x,y) not in seen:
+                    seen.add((x,y))
+                    heapq.heappush(heap,(grid[x][y],x,y))
