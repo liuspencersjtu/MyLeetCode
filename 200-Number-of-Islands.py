@@ -26,3 +26,29 @@ class Solution:
                     res+=1
                     shrink(i,j)
         return res
+
+ class Solution:
+    def NumberofIsland(self, imag):
+        if len(imag) or len(imag[0]): # empty matrix
+            return 0
+        
+        row = len(imag)
+        col = len(imag[0])
+        
+        count = 0
+        for i in range(row):
+            for j in range(col):
+                if imag[i][j] == '1':
+                    count += 1
+                    self.helper(imag, row, col, i, j)
+        return count
+        
+    def helper(self, imag, row, col, i, j):
+        # check boundary
+        if i<0 or i>row-1 or j<0 or j>col-1 or imag[i][j]!='1':
+            return
+        imag[i][j] = 'x'   # label 1
+        self.helper(imag, row, col, i+1, j)  # upper
+        self.helper(imag, row, col, i-1, j)  # lower
+        self.helper(imag, row, col, i, j+1)  # right
+        self.helper(imag, row, col, i, j-1)  # left
