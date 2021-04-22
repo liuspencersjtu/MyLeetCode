@@ -47,24 +47,27 @@ class Solution:
             if trie.find(word):
                 res.append(word)
         return res
-    
+   
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
         trie = TrieNode()
         trie.buildTrie(words)
         M, N = len(board), len(board[0])
         res = []
-        def dfs(i, j, node, path):
+        visited = [[False]*N for _ in range(M)]
+        def dfs(i, j, node, path, visited):
             # if node.isWordEnd == True:
             #     res.append(path)
             if board[i][j] not in node.children:
                 return 
             elif node.children[board[i][j]].isWordEnd == True:
                 res.append(path+board[i][j])
-                return
+                # return
+            visited[i][j]=True
             for m,n in [(i-1,j),(i+1,j),(i,j-1),(i,j+1)]:
-                if 0<=m<M and 0<=n<N:
-                    dfs(m,n,node.children[board[i][j]],path+board[i][j])
+                if 0<=m<M and 0<=n<N and not visited[m][n]:
+                    dfs(m,n,node.children[board[i][j]],path+board[i][j], visited)
+            visited[i][j]=False
         for i in range(M):
             for j in range(N):
-                dfs(i,j,trie,'')
-        return res
+                dfs(i,j,trie,'',visited)
+        return list(set(res)) 
